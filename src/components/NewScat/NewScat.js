@@ -6,6 +6,7 @@ class NewScat extends React.Component {
   render() {
     return (
       <div className="NewScat">
+        <h1>New Scat</h1>
       </div>
     );
   }
