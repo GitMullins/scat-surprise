@@ -12,7 +12,6 @@ import Home from '../components/Home/Home';
 import NewScat from '../components/NewScat/NewScat';
 import SingleScat from '../components/SingleScat/SingleScat';
 import EditScat from '../components/EditScat/EditScat';
-
 import MyNavbar from '../components/MyNavbar/MyNavbar';
 
 import fbConnection from '../helpers/data/connection';
