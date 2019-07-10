@@ -1,4 +1,8 @@
 import React from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+
+import scatData from '../../helpers/data/scatsData';
 
 import './NewScat.scss';
 
@@ -31,13 +35,23 @@ class NewScat extends React.Component {
 
   locationChange = e => this.formFieldStringState('location', e);
 
+  formSubmit = (e) => {
+    e.preventDefault();
+    const saveMe = { ...this.state.newScat };
+    saveMe.uid = firebase.auth().currentUser.uid;
+    console.error('thing to save', saveMe);
+    scatData.postScat(saveMe)
+      .then(() => this.props.history.push('/home'))
+      .catch(err => console.error('unable to save', err));
+  }
+
   render() {
     const { newScat } = this.state;
     return (
       <div className="NewScat">
         <h1>New Scat</h1>
-        <form>
-          <div class="form-group">
+        <form onSubmit={this.formSubmit}>
+          <div className="form-group">
             <label htmlFor="sampleNum">Sample Num</label>
             <input
             type="text"
@@ -48,7 +62,7 @@ class NewScat extends React.Component {
             onChange={this.sampleNumChange}
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
           <label htmlFor="color">Color</label>
           <input
           type="text"
@@ -59,7 +73,7 @@ class NewScat extends React.Component {
           onChange={this.colorChange}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="color">Weight</label>
           <input
           type="text"
@@ -70,7 +84,7 @@ class NewScat extends React.Component {
           onChange={this.weightChange}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="color">Animal</label>
           <input
           type="text"
@@ -81,7 +95,7 @@ class NewScat extends React.Component {
           onChange={this.animalChange}
           />
         </div>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="color">Location</label>
           <input
           type="text"
@@ -93,7 +107,7 @@ class NewScat extends React.Component {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">Save New Scat</button>
       </form>
       </div>
 
